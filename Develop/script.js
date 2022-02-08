@@ -1,86 +1,128 @@
-// Assignment code here
+// Generate a new, secure password
 
-// create a new, secure password
-// when button is clicked, present a series of prompts for password criteria
+var lowercaseChars = "abcdefghijklmnopqrstuvwxyz";
+var uppercaseChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+var numberChars = "0123456789";
+var symbolChars = "!@#$%^&*()'+;:.,-=/~{|}<>[-]";
+
+// Click the button to generate a password that matches the selected criteria
 function generatePassword() {
 
-  function getLength() {
+  var passwordOptions = passwordCriteria();
+  var chosenCharacters = [];
+  var finalGeneratedPassword = [];
 
-    // prompt for the length of the password, from 8 to 128 characters
-    var passwordLength = window.prompt("Choose a length of at least 8 characters and no more than 128 characters.");
-    
-    // validate that a number from 8 to 128 was selected, if not ask again
-    if (passwordLength < 8 || passwordLength > 128) {
-      alert("Please choose a valid number!");
-      getLength();
-    } 
-    else {
-      window.alert("You have chosen a length of " + passwordLength);
-      console.log(passwordLength)
-    }
+  if (passwordOptions.characterTypes.lowercase) {
+    chosenCharacters = chosenCharacters.concat(lowercaseChars)
+  }
+  if (passwordOptions.characterTypes.uppercase) {
+    chosenCharacters = chosenCharacters.concat(uppercaseChars)
+  }
+  if (passwordOptions.characterTypes.number) {
+    chosenCharacters = chosenCharacters.concat(numberChars)
+  }
+  if (passwordOptions.characterTypes.symbol) {
+    chosenCharacters = chosenCharacters.concat(symbolChars)
   }
 
-  getLength();
-
-  // confirm whether or not to use uppercase, lowercase, numeric, and/or special characters
-
-  var lowerCase = "abcdefghijklmnopqrstuvwxyz";
-  var upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  var numbers = "0123456789";
-  var symbols = "!@#$%^&*()'+;:.,-=/~{|}<>[-]"
-
-  function getCharacterTypes() {
-
-    var isLowerCase = window.confirm("Should this password include lowercase letters?");
-      if (isLowerCase) {
-      window.alert("This password will include lowercase letters.");
-      }
-      else (
-        window.alert("This password will NOT include lowercase letters.")
-      )
-      console.log("Lower Case: " + isLowerCase);
-
-    var isUpperCase = window.confirm("Should this password include uppercase letters?");
-      if (isUpperCase) {
-      window.alert("This password will include uppercase letters.")
-      }
-      else (
-        window.alert("This password will NOT include uppercase letters.")
-      )
-      console.log("Upper Case: " + isUpperCase);
-
-    var containsNumbers = window.confirm("Should this password include numbers?")
-      if (containsNumbers) {
-      window.alert("This password will include numbers.")
-      }
-      else (
-        window.alert("This password will NOT include numbers.")
-      )
-      console.log("Numbers: " + containsNumbers);
-
-    var containsSymbols = window.confirm("Should this password include special characters?")
-      if (containsSymbols) {
-      window.alert("This password will include special characters.")
-      }
-      else (
-        window.alert("This password will NOT include special characters.")
-      )
-      console.log("Special Characters: " + containsSymbols);
-
+  for(var i = 0; i < passwordOptions.passwordLength; i++) {
+    var combinedPassword = getRandomCharacters(chosenCharacters.join("").split(""));
+    finalGeneratedPassword.push(combinedPassword);
+  }
+  console.log(finalGeneratedPassword)
+  return finalGeneratedPassword.join("")
 }
 
-getCharacterTypes();
-
-// validate that at least one character type was selected, if not ask again
-
-
-// generate a password that matches the selected criteria
-
-
-// display the password in alert or on the page
-return "password";
-
+function getRandomCharacters(list) {
+  var randomPassword = Math.floor(Math.random() * list.length);
+  console.log(randomPassword)
+  var randomElement = list[randomPassword];
+  return randomElement;
 }
+
+// Present a series of prompts for password criteria
+function passwordCriteria() {
+  var length = getLength();
+  var characterTypes = getCharacterTypes();
+  var criteria = {
+    passwordLength: length,
+    characterTypes: characterTypes
+  }
+  return criteria;
+}
+
+// Prompt for the length
+function getLength() {
+  var passwordLength = window.prompt("Choose a length of at least 8 characters and no more than 128 characters.");
+  
+// Validate that a number from 8 to 128 was selected, if not ask again
+  if (passwordLength >= 8 && passwordLength <= 128) {
+    window.alert("You have chosen a length of " + passwordLength);
+  } 
+  else {
+    alert("Please choose a valid number!");
+    getLength();
+  }
+  return passwordLength;
+}
+
+// Confirm which character types to include in the password
+// uppercase, lowercase, numeric, or special characters
+function getCharacterTypes() {
+
+  var includeLowercase = window.confirm("Should this password include lowercase letters?");
+    if (includeLowercase) {
+    window.alert("This password WILL include lowercase letters.");
+    }
+    else {
+      window.alert("This password WILL NOT include lowercase letters.")
+    }
+
+  var includeUppercase = window.confirm("Should this password include uppercase letters?");
+    if (includeUppercase) {
+    window.alert("This password WILL include uppercase letters.")
+    }
+    else {
+      window.alert("This password WILL NOT include uppercase letters.")
+    }
+
+  var includeNumbers = window.confirm("Should this password include numbers?")
+    if (includeNumbers) {
+    window.alert("This password WILL include numbers.")
+    }
+    else {
+      window.alert("This password WILL NOT include numbers.")
+    }
+
+  var includeSymbols = window.confirm("Should this password include special characters?")
+    if (includeSymbols) {
+    window.alert("This password WILL include special characters.")
+    }
+    else {
+      window.alert("This password WILL NOT include special characters.")
+    }
+
+    // Validate that at least one character type was selected, if not ask again
+    if(!includeLowercase && !includeUppercase && !includeNumbers && !includeSymbols) {
+      window.alert("You must choose at least one character type.");
+      getCharacterTypes();
+    }
+    else {
+      window.alert("A password has been generated!");
+    }
+
+    var chosenCharacterTypes = {
+      lowercase: includeLowercase,
+      uppercase: includeUppercase,
+      number: includeNumbers,
+      symbol: includeSymbols,
+    };
+
+    return chosenCharacterTypes;
+}
+
+
+// GIVEN CODE
 
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
