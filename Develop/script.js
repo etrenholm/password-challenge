@@ -1,54 +1,26 @@
 // Generate a new, secure password
 
-var lowercaseChars = "abcdefghijklmnopqrstuvwxyz";
-var uppercaseChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-var numberChars = "0123456789";
-var symbolChars = "!@#$%^&*()'+;:.,-=/~{|}<>[-]";
+var chosenCharacters = [];
+var finalPassword = [];
 
 // Click the button to generate a password that matches the selected criteria
 function generatePassword() {
 
-  var passwordOptions = passwordCriteria();
-  var chosenCharacters = [];
-  var finalGeneratedPassword = [];
+  var passwordLength = getLength();
+  getCharacterTypes();
 
-  if (passwordOptions.characterTypes.lowercase) {
-    chosenCharacters = chosenCharacters.concat(lowercaseChars)
-  }
-  if (passwordOptions.characterTypes.uppercase) {
-    chosenCharacters = chosenCharacters.concat(uppercaseChars)
-  }
-  if (passwordOptions.characterTypes.number) {
-    chosenCharacters = chosenCharacters.concat(numberChars)
-  }
-  if (passwordOptions.characterTypes.symbol) {
-    chosenCharacters = chosenCharacters.concat(symbolChars)
+  for(var i = 0; i <= passwordLength; i++) {
+    var randomPassword = makeRandom();
+    combinedPassword = chosenCharacters[randomPassword];
+    finalPassword.push(combinedPassword)
   }
 
-  for(var i = 0; i < passwordOptions.passwordLength; i++) {
-    var combinedPassword = getRandomCharacters(chosenCharacters.join("").split(""));
-    finalGeneratedPassword.push(combinedPassword);
-  }
-  console.log(finalGeneratedPassword)
-  return finalGeneratedPassword.join("")
+return finalPassword.join("");
 }
 
-function getRandomCharacters(list) {
-  var randomPassword = Math.floor(Math.random() * list.length);
-  console.log(randomPassword)
-  var randomElement = list[randomPassword];
-  return randomElement;
-}
-
-// Present a series of prompts for password criteria
-function passwordCriteria() {
-  var length = getLength();
-  var characterTypes = getCharacterTypes();
-  var criteria = {
-    passwordLength: length,
-    characterTypes: characterTypes
-  }
-  return criteria;
+function makeRandom() {
+  var newPassword = Math.floor(Math.random() * chosenCharacters.length);
+  return newPassword;
 }
 
 // Prompt for the length
@@ -72,7 +44,8 @@ function getCharacterTypes() {
 
   var includeLowercase = window.confirm("Should this password include lowercase letters?");
     if (includeLowercase) {
-    window.alert("This password WILL include lowercase letters.");
+      chosenCharacters.push("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k" ,"l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z")
+      window.alert("This password WILL include lowercase letters.");
     }
     else {
       window.alert("This password WILL NOT include lowercase letters.")
@@ -80,7 +53,8 @@ function getCharacterTypes() {
 
   var includeUppercase = window.confirm("Should this password include uppercase letters?");
     if (includeUppercase) {
-    window.alert("This password WILL include uppercase letters.")
+      chosenCharacters.push("A")
+      window.alert("This password WILL include uppercase letters.")
     }
     else {
       window.alert("This password WILL NOT include uppercase letters.")
@@ -88,7 +62,8 @@ function getCharacterTypes() {
 
   var includeNumbers = window.confirm("Should this password include numbers?")
     if (includeNumbers) {
-    window.alert("This password WILL include numbers.")
+      chosenCharacters.push("1", "2", "3")
+      window.alert("This password WILL include numbers.")
     }
     else {
       window.alert("This password WILL NOT include numbers.")
@@ -96,7 +71,8 @@ function getCharacterTypes() {
 
   var includeSymbols = window.confirm("Should this password include special characters?")
     if (includeSymbols) {
-    window.alert("This password WILL include special characters.")
+      chosenCharacters.push("!", "@", "#")
+      window.alert("This password WILL include special characters.")
     }
     else {
       window.alert("This password WILL NOT include special characters.")
@@ -111,14 +87,6 @@ function getCharacterTypes() {
       window.alert("A password has been generated!");
     }
 
-    var chosenCharacterTypes = {
-      lowercase: includeLowercase,
-      uppercase: includeUppercase,
-      number: includeNumbers,
-      symbol: includeSymbols,
-    };
-
-    return chosenCharacterTypes;
 }
 
 
