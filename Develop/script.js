@@ -53,7 +53,7 @@ function getCharacterTypes() {
 
   var includeUppercase = window.confirm("Should this password include uppercase letters?");
     if (includeUppercase) {
-      chosenCharacters.push("A")
+      chosenCharacters.push("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z")
       window.alert("This password WILL include uppercase letters.")
     }
     else {
@@ -62,7 +62,7 @@ function getCharacterTypes() {
 
   var includeNumbers = window.confirm("Should this password include numbers?")
     if (includeNumbers) {
-      chosenCharacters.push("1", "2", "3")
+      chosenCharacters.push("1", "2", "3", "4", "5", "6", "7", "8", "9", "0")
       window.alert("This password WILL include numbers.")
     }
     else {
@@ -71,7 +71,7 @@ function getCharacterTypes() {
 
   var includeSymbols = window.confirm("Should this password include special characters?")
     if (includeSymbols) {
-      chosenCharacters.push("!", "@", "#")
+      chosenCharacters.push("!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "-", "+", "?", "/", "~", "<", ">", "+", "[", "]", "{", "}")
       window.alert("This password WILL include special characters.")
     }
     else {
