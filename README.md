@@ -50,7 +50,7 @@ Project was updated using:
 * https://github.com/etrenholm/password-challenge
 * https://etrenholm.github.io/password-challenge
 
-![mockup](./images/password-generator.png)
+![mockup](./Images/password-generator.png)
 
 ## Credit
 
